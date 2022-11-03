@@ -98,7 +98,7 @@ void freeListNode(node* curNode){
     if(curNode -> nextNode == NULL){
         free(curNode);
     }else{
-        freeListNode(curNode -> nextNode);
+        freeListNode((node *) curNode->nextNode);
         free(curNode);
     }
 }
