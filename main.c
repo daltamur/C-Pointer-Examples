@@ -94,6 +94,15 @@ void addNodeToList(int addedVal, node* curNode){
     }
 }
 
+void freeListNode(node* curNode){
+    if(curNode -> nextNode == NULL){
+        free(curNode);
+    }else{
+        freeListNode(curNode -> nextNode);
+        free(curNode);
+    }
+}
+
 
 void traverseList(node* curNode){
     printf("%d\n", curNode->value);
@@ -167,6 +176,7 @@ int main() {
     addNodeToList(12, head);
 
     traverseList(head);
+    freeListNode(head);
 
     return 0;
 }
