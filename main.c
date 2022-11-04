@@ -34,7 +34,7 @@ void fillUpMatrix(int **matrix){
         for(int j = 0; j<3; j++ ){
             //fill up the row
             //this is the same as matrix[i][j] = j
-            //*(matrix+i) looks at the row value (think of it like getting a value from a single array
+            //*(matrix+i) looks at the row value (think of it like getting a value from a single array)
             //*(*(matrix+i)+j) looks at a cell value where *(matrix+i) is the row value to reference
             //and the +j part is what row we are looking at.
             *(*(matrix+i)+j) = j;
@@ -88,7 +88,6 @@ void addNodeToList(int addedVal, node* curNode){
         nextPointer->nextNode = NULL;
         nextPointer->value = addedVal;
         curNode->nextNode = (struct node *) nextPointer;
-        int i = 5;
     }else{
         addNodeToList(addedVal, (node *) curNode->nextNode);
     }
@@ -100,6 +99,20 @@ void freeListNode(node* curNode){
     }else{
         freeListNode((node *) curNode->nextNode);
         free(curNode);
+    }
+}
+
+node* removeListNode(int removeVal, node *curNode) {
+    //this is for a singly linked list, it would actually be easier if we were using a doubly linked list!
+    //try and make a doubly linked list and apply the methods I provided!
+    if(curNode -> value == removeVal){
+        return (node *) curNode->nextNode;
+    }else{
+        node* returnedVal = removeListNode(removeVal, (node *) curNode->nextNode);
+        if(returnedVal != NULL){
+            curNode->nextNode = (struct node *) returnedVal;
+            return NULL;
+        }
     }
 }
 
@@ -175,12 +188,13 @@ int main() {
     addNodeToList(8, head);
     addNodeToList(12, head);
 
+    printf("List before removal of 8: \n");
+    traverseList(head);
+    removeListNode(8, head);
+    printf("\n");
+    printf("List after removal of 8: \n");
     traverseList(head);
     freeListNode(head);
 
     return 0;
 }
-
-
-
-
